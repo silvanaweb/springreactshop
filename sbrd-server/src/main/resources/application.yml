@@ -1,0 +1,21 @@
+filePath: /Users/silvana.donato/workspace/playground/javaprojects/reactwebapp/sbrd-server/src/main/resources/static/images
+
+spring:
+    security:
+        user:
+            name: user
+            password: user
+    datasource:
+        url: jdbc:mysql://localhost:3306/reactapp
+        username: root
+        password:
+        driver-class-name: com.mysql.jdbc.Driver
+    jpa:
+        show-sql: true
+        database-platform: org.hibernate.dialect.MySQLDialect
+        hibernate:
+            ddl-auto: update
+            format_sql: true
+rsa:
+    private-key: classpath:certs/private.pem
+    public-key: classpath:certs/public.pem

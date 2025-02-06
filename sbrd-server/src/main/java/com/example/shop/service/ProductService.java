@@ -1,0 +1,67 @@
+package com.example.shop.service;
+
+
+import com.example.shop.model.Product;
+import com.example.shop.repository.ProductRepository;
+import com.example.shop.users.model.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+
+
+@Service
+@RequiredArgsConstructor
+public class ProductService {
+
+    private static final Object FOLDER_PATH = "/Users/silvana.donato/workspace/playground/javaprojects/reactwebapp/sbrd-server/src/main/resources/static/images";
+    private final ProductRepository productRepository;
+
+    public byte[] getProductImage(String name) throws IOException {
+        File imageFile = new File(FOLDER_PATH + "/" + name);
+        if(!imageFile.exists()){
+            throw new IOException("image is not found in the location");
+        }
+        return Files.readAllBytes(imageFile.toPath());
+    }
+
+    public String addProduct(Product product, MultipartFile file) throws IOException {
+        if (file != null) {
+            File directory=new File(String.valueOf(FOLDER_PATH));
+            if(!directory.exists()){
+                directory.mkdirs();
+            }
+
+            File destinationFile=new File(directory,file.getOriginalFilename());
+            file.transferTo(destinationFile);
+
+            product.setImage(file.getOriginalFilename());
+        }
+        productRepository.save(product);
+        return "Product uploaded successfully";
+
+
+    }
+    
+    public List<Product> getProducts() {
+        return productRepository.findAll();
+    }
+
+
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+    public void deleteProduct(Long id) {
+        // delete image
+    }
+}
