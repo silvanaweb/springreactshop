@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin
 @RequiredArgsConstructor // it injects the final fields in the constructor
 public class ProductController {
     private final ProductService productService;
@@ -27,11 +26,9 @@ public class ProductController {
 
     @PostMapping
     public String addProduct(@RequestBody Product product) {
-//    public String addProduct(@RequestPart Product product,  @RequestPart(value="file", required = false) MultipartFile file) {
-//    public String addProduct(@ModelAttribute ProductFileRequest product) {
         System.out.println("Product: " + product);
         try {
-            return productService.addProduct(product, null);
+            return productService.addProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
             return "Error uploading the product";

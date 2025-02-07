@@ -11,9 +11,7 @@ import {
 } from "react-router-dom";
 import AddProduct from "./component/products/AddProduct";
 import EditProduct from "./component/products/EditProduct";
-import ProductPofile from "./component/products/ProductView";
-import RegistrationSuccess from "./component/account/RegistrationSuccessful";
-import Registration from "./component/account/registration";
+import ProductView from "./component/products/ProductView";
 import Login from "./component/account/Login";
 import LoginSuccess from "./component/account/LoginSuccess";
 import { AuthProvider } from "./component/account/AuthContext";
@@ -27,48 +25,40 @@ function App() {
 			<AuthProvider>
 				<BrowserRouter>
 					<NavBar />
-					<Routes>
-						<Route
-							exact
-							path="/"
-							element={<Home />}></Route>
-						<Route
-							exact
-							path="/view-products"
-							element={<ProtectedRoute><ProductsView /></ProtectedRoute>}></Route>
-						<Route
-							exact
-							path="/view-orders"
-							element={<UserRoute><OrdersView /></UserRoute>}></Route>
-						<Route
-							exact
-							path="/add-products"
-							element={<AddProduct />}></Route>
-						<Route
-							exact
-							path="/edit-product/:id"
-							element={<EditProduct />}></Route>
-						<Route
-							exact
-							path="/product-view/:id"
-							element={<ProductPofile />}></Route>
-						<Route
-							exact
-							path="/registration-success"
-							element={<RegistrationSuccess />}></Route>
-						<Route
-							exact
-							path="/registration"
-							element={<Registration />}></Route>
-						<Route
-							exact
-							path="/login"
-							element={<Login />}></Route>
-						<Route
-							exact
-							path="/login-success"
-							element={<LoginSuccess />}></Route>
-					</Routes>
+						<Routes>
+							<Route
+								exact
+								path="/"
+								element={<Home />}></Route>
+							<Route
+								exact
+								path="/view-products"
+								element={<ProtectedRoute><ProductsView /></ProtectedRoute>}></Route>
+							<Route
+								exact
+								path="/view-orders"
+								element={<UserRoute><OrdersView /></UserRoute>}></Route>
+							<Route
+								exact
+								path="/add-products"
+								element={<AddProduct />}></Route>
+							<Route
+								exact
+								path="/edit-product/:id"
+								element={<EditProduct />}></Route>
+							<Route
+								exact
+								path="/product-view/:id"
+								element={<ProductView />}></Route>
+							<Route
+								exact
+								path="/login"
+								element={<Login />}></Route>
+							<Route
+								exact
+								path="/login-success"
+								element={<LoginSuccess />}></Route>
+						</Routes>
 				</BrowserRouter>
 			</AuthProvider>
 		</main>

@@ -62,34 +62,41 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error
-        ? <div class="alert alert-danger" role="alert">{error}</div>
-        : null
-      }
+    <div class="login-page">
+      <section>
+        <h1>Login</h1>
+        {error
+          ? <div class="alert alert-danger" role="alert">{error}</div>
+          : null
+        }
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="text"
-            name="username"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <div class="inputbox">
+            <ion-icon name="person-outline"></ion-icon>
+            <input
+              id="username"
+              type="text"
+              name="username"
+              onChange={handleChange}
+              required
+            />
+            <label for="username">Username</label>
+          </div>
+          <div class="inputbox">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              onChange={handleChange}
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+
+      </section>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const OrdersView = () => {
 
 
   return (
-    <div>
+    <div className='container mt-5'>
       <h1>Orders View</h1>
       {getUserId()}
     </div>

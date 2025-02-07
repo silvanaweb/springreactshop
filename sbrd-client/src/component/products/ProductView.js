@@ -20,7 +20,6 @@ const ProductPofile = () => {
 		if (product.id != id) {
 			loadProduct();
 		}
-		console.log('silvana start', )
 	}, []);
 
 	const loadProduct = async () => {
@@ -31,7 +30,9 @@ const ProductPofile = () => {
 		setProduct(result.data);
 
 	};
-
+	const image = product.image
+	? `http://localhost:8080/file/download/${product.image}`
+	: "/shoe.png";
 	return (
 		<section
 			className="shadow"
@@ -42,7 +43,7 @@ const ProductPofile = () => {
 						<div className="card mb-4">
 							<div className="card-body text-center">
 								<img
-									src={`http://localhost:8080/file/download/${product.image}`}
+									src={image}
 									alt="avatar"
 									className="rounded-circle img-fluid"
 									style={{ width: 150 }}

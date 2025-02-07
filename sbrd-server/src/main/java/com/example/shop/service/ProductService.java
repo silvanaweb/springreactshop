@@ -29,22 +29,9 @@ public class ProductService {
         return Files.readAllBytes(imageFile.toPath());
     }
 
-    public String addProduct(Product product, MultipartFile file) throws IOException {
-        if (file != null) {
-            File directory=new File(String.valueOf(FOLDER_PATH));
-            if(!directory.exists()){
-                directory.mkdirs();
-            }
-
-            File destinationFile=new File(directory,file.getOriginalFilename());
-            file.transferTo(destinationFile);
-
-            product.setImage(file.getOriginalFilename());
-        }
+    public String addProduct(Product product) {
         productRepository.save(product);
         return "Product uploaded successfully";
-
-
     }
     
     public List<Product> getProducts() {

@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
   const getUserRole = () => {
     if (!token) return null
     const  jwt = jwtDecode(token);
+    console.log('silvana getUserRole', jwt)
     return jwt ? jwt.scope : null;
   }
 

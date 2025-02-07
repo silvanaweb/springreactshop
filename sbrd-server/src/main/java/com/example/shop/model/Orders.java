@@ -20,8 +20,8 @@ public class Orders {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     private double totalPrice;
     private LocalDateTime orderDate;

@@ -15,6 +15,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     private String name;
+    @Column(length = 65555)
     private String description;
     @ManyToOne
     @JoinColumn(name="brand_id")

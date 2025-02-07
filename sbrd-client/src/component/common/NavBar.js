@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../account/AuthContext";
 
 const NavBar = () => {
 	const { isAutenticated, isAdmin } = useAuth();
 	const logout = useAuth().logout;
 	const navigate = useNavigate();
+	const location = useLocation()
 
 	useEffect(() => {
-		if (!isAutenticated()) {
+		if (!isAutenticated() && location.pathname !== "/login") {	
 			navigate("/login");
 		}
 	});
@@ -19,7 +20,7 @@ const NavBar = () => {
 	};
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+		<nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
 			<div className="container-fluid">
 				<Link className="navbar-brand" to={"/"}>
 					Shoessie Shop
@@ -58,16 +59,8 @@ const NavBar = () => {
 								</Link>
 							</li>
 						)}
-						{isAdmin() && (
-							<li className="nav-item">
-								<Link
-									className="nav-link active"
-									aria-current="page"
-									to={"/registration"}>
-									Register User
-									</Link>
-							</li>
-						)}
+
+						{isAutenticated() && (
 						<li className="nav-item">
 							<Link
 								className="nav-link active"
@@ -76,6 +69,7 @@ const NavBar = () => {
 								View Orders
 							</Link>
 						</li>
+						)}
 					</ul>
 				</div>
 			</div>
