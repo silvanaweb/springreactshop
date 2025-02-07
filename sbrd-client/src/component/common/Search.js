@@ -1,6 +1,6 @@
 import React from "react";
 
-const Search = ({ search, setSearch }) => {
+const Search = ({ search, setSearch, placeholder = "Search items..." }) => {
 	return (
 		<div className="col-sm-6 mb-4">
 			<form onSubmit={(e) => e.preventDefault()}>
@@ -8,7 +8,7 @@ const Search = ({ search, setSearch }) => {
 					className="form-control"
 					type="search"
 					role="searchbox"
-					placeholder="Search products..."
+					placeholder={placeholder}
 					value={search}
 					onChange={(e) =>
 						setSearch(e.target.value)

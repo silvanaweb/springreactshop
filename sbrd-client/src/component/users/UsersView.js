@@ -12,26 +12,27 @@ import { Link } from "react-router-dom";
 import Search from "../common/Search";
 import axiosInstance from "../../axiosConfig";
 
-const StudentsView = () => {
-	const [students, setStudents] = useState([]);
+const UsersView = () => {
+	const [users, setUsers] = useState([]);
 	const [search, setSearch] = useState("");
 
 	useEffect(() => {
-		loadStudents();
+		loadUsers();
 	}, []);
 
-	const loadStudents = async () => {
+	const loadUsers = async () => {
 		try {
 			const result = await axiosInstance.get(
-				"students",
+				"account/users",
 				{
 					validateStatus: () => {
 						return true;
 					},
 				}
 			);
-			if (result.status === 302) {
-				setStudents(result.data);
+			console.log('silvana result', result)
+			if (result.status === 200) {
+				setUsers(result.data);
 			}
 			
 		} catch (error) {
@@ -41,14 +42,16 @@ const StudentsView = () => {
 
 	const handleDelete = async (id) => {
 		await axiosInstance.delete(
-			`delete/${id}`
+			`account/	user/${id}`
 		);
-		loadStudents();
+		loadUsers();
 	};
 
 	return (
+		<div className='container mt-5'>
 		<section>
 			<Search
+				placeholder="Search by First Name"
 				search={search}
 				setSearch={setSearch}
 			/>
@@ -59,37 +62,37 @@ const StudentsView = () => {
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
-						<th>Depatment</th>
+						<th>Role</th>
 						<th colSpan="3">Actions</th>
 					</tr>
 				</thead>
 
 				<tbody className="text-center">
-					{students
+					{users
 						.filter((st) =>
-							st.firstName
+							st.firstname
 								.toLowerCase()
 								.includes(search)
 						)
-						.map((student, index) => (
-							<tr key={student.id}>
+						.map((user, index) => (
+							<tr key={user.id}>
 								<th scope="row" key={index}>
 									{index + 1}
 								</th>
-								<td>{student.firstName}</td>
-								<td>{student.lastName}</td>
-								<td>{student.email}</td>
-								<td>{student.department}</td>
+								<td>{user.firstname}</td>
+								<td>{user.lastname}</td>
+								<td>{user.email}</td>
+								<td>{user.role}</td>
 								<td className="mx-2">
 									<Link
-										to={`/student-profile/${student.id}`}
+										to={`/user-profile/${user.id}`}
 										className="btn btn-info">
 										<FaEye />
 									</Link>
 								</td>
 								<td className="mx-2">
 									<Link
-										to={`/edit-student/${student.id}`}
+										to={`/edit-user/${user.id}`}
 										className="btn btn-warning">
 										<FaEdit />
 									</Link>
@@ -98,7 +101,7 @@ const StudentsView = () => {
 									<button
 										className="btn btn-danger"
 										onClick={() =>
-											handleDelete(student.id)
+											handleDelete(user.id)
 										}>
 										<FaTrashAlt />
 									</button>
@@ -108,7 +111,8 @@ const StudentsView = () => {
 				</tbody>
 			</table>
 		</section>
+		</div>
 	);
 };
 
-export default StudentsView;
+export default UsersView;

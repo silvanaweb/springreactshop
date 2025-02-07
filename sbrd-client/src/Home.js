@@ -18,7 +18,7 @@ const Home = () => {
 				<div className="col-lg-12">
 					<div className=" mb-4">
 						<div className="text-center">
-							<h2>Welcome to Shoessie Shope</h2>
+							<h2>Welcome to Shoes4U</h2>
 							<h2>Login to see your orders</h2>
 							<div className="d-flex justify-content-center mt-4 mb-2">
 								<button

@@ -46,6 +46,18 @@ const EditProduct = () => {
 		}
 	};
 
+	const handleSelectChange = (e) => {
+		const selectedBrandId = e.target.value;
+		const selectedBrandName = e.target.options[e.target.selectedIndex].text;
+		setProduct({
+			...product,
+			brand: {
+				id: selectedBrandId,
+				name: selectedBrandName,
+			},
+		});
+	};
+	
 	const handleInputChange = (e) => {
 		setProduct({
 			...product,
@@ -155,7 +167,7 @@ const EditProduct = () => {
 							id="brand"
 							required
 							value={brand.id}
-							onChange={(e) => handleInputChange(e)}
+							onChange={(e) => handleSelectChange(e)}
 						>
 							<option value="1">NiKe</option>
 							<option value="2">Adidas</option>

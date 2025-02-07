@@ -23,7 +23,7 @@ const NavBar = () => {
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
 			<div className="container-fluid">
 				<Link className="navbar-brand" to={"/"}>
-					Shoessie Shop
+					Shoes4U
 				</Link>
 				{isAutenticated() ? (
 					<Link className="navbar-brand" onClick={onLogout}>
@@ -56,6 +56,16 @@ const NavBar = () => {
 									aria-current="page"
 									to={"/view-products"}>
 									View Products
+								</Link>
+							</li>
+						)}
+						{isAdmin() && (
+							<li className="nav-item">
+								<Link
+									className="nav-link active"
+									aria-current="page"
+									to={"/view-users"}>
+									View Users
 								</Link>
 							</li>
 						)}

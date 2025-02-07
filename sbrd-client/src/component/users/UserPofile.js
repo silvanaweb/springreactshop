@@ -3,28 +3,36 @@ import React, {
 	useState,
 } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+
 import axiosInstance from "../../axiosConfig";
 
-const StudentPofile = () => {
+const UserPofile = () => {
 	const { id } = useParams();
 
-	const [student, setStudent] = useState({
-		firstName: "",
-		lastName: "",
+	const [user, setUser] = useState({
+		firstname: "",
+		lastname: "",
+		username: "",
 		email: "",
 		department: "",
 	});
 
 	useEffect(() => {
-		loadStudent();
+		loadUser();
 	}, []);
 
-	const loadStudent = async () => {
-		const result = await axiosInstance.get(
-			`student/${id}`
-		);
-		setStudent(result.data);
+	const loadUser = async () => {
+		try {
+			const result = await axiosInstance.get(
+				`account/user/${id}`
+			);
+			if (result.status === 200) {
+				setUser(result.data);
+			}
+			
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
@@ -43,7 +51,7 @@ const StudentPofile = () => {
 									style={{ width: 150 }}
 								/>
 								<h5 className="my-3">
-									{`${student.firstName} ${student.lastName}`}
+									{`${user.firstname} ${user.lastname}`}
 								</h5>
 								<div className="d-flex justify-content-center mb-2">
 									<button
@@ -75,7 +83,7 @@ const StudentPofile = () => {
 
 									<div className="col-sm-9">
 										<p className="text-muted mb-0">
-											{student.firstName}
+											{user.firstname}
 										</p>
 									</div>
 								</div>
@@ -91,7 +99,21 @@ const StudentPofile = () => {
 
 									<div className="col-sm-9">
 										<p className="text-muted mb-0">
-											{student.lastName}
+											{user.lastname}
+										</p>
+									</div>
+								</div>
+								<hr />
+								<div className="row">
+									<div className="col-sm-3">
+										<h5 className="mb-0">
+											User Name
+										</h5>
+									</div>
+
+									<div className="col-sm-9">
+										<p className="text-muted mb-0">
+											{user.username}
 										</p>
 									</div>
 								</div>
@@ -106,7 +128,7 @@ const StudentPofile = () => {
 
 									<div className="col-sm-9">
 										<p className="text-muted mb-0">
-											{student.email}
+											{user.email}
 										</p>
 									</div>
 								</div>
@@ -115,13 +137,13 @@ const StudentPofile = () => {
 								<div className="row">
 									<div className="col-sm-3">
 										<h5 className="mb-0">
-											Department
+											Role
 										</h5>
 									</div>
 
 									<div className="col-sm-9">
 										<p className="text-muted mb-0">
-											{student.department}
+											{user.role}
 										</p>
 									</div>
 								</div>
@@ -134,4 +156,4 @@ const StudentPofile = () => {
 	);
 };
 
-export default StudentPofile;
+export default UserPofile;
