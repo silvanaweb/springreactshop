@@ -4,11 +4,14 @@ import { useAuth } from './component/account/AuthContext';
 
 const Home = () => {
 	const navigate = useNavigate();
-	const { isAutenticated } = useAuth();
+	const { isAutenticated, isAdmin } = useAuth();
 
 	useEffect(() => {
-		if (isAutenticated()) {
+		if (isAdmin()) {
 			navigate('/view-orders');
+		}
+		if (isAutenticated()) {
+			navigate('/view-customer-orders');
 		}
 	}, []);
 

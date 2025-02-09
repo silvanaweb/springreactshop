@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../account/AuthContext';
 import axiosInstance from '../../axiosConfig';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const OrdersView = () => {
+const OdersCustomerView = () => {
   const { getUserId, isAdmin } = useAuth();
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadOrders();
@@ -31,14 +30,7 @@ const OrdersView = () => {
     <div className='container mt-5'>
       <h1>Orders View</h1>
       <section>
-        <div className="container">
-          <div className="row">
-            <div className="col">
-{/* TODO : implement filters */}
 
-            </div>
-          </div>
-        </div>
         <table className="table table-bordered table-hover shadow">
           <thead>
             <tr className="text-center">
@@ -90,4 +82,4 @@ const OrdersView = () => {
   );
 };
 
-export default OrdersView;
+export default OdersCustomerView;

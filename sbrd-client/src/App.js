@@ -18,6 +18,7 @@ import { AuthProvider } from "./component/account/AuthContext";
 import ProtectedRoute from "./component/account/ProtectedRoute";
 import UserRoute from "./component/account/UserRoute";
 import OrdersView from "./component/orders/OdersView";
+import OrdersCustomerView from "./component/orders/OdersCustomerView";
 import UsersView from "./component/users/UsersView";
 import UserPofile from "./component/users/UserPofile";
 import EditUser from "./component/users/EditUser";
@@ -52,7 +53,11 @@ function App() {
 							<Route
 								exact
 								path="/view-orders"
-								element={<UserRoute><OrdersView /></UserRoute>}></Route>
+								element={<ProtectedRoute><OrdersView /></ProtectedRoute>}></Route>
+							<Route
+								exact
+								path="/view-customer-orders"
+								element={<UserRoute><OrdersCustomerView /></UserRoute>}></Route>
 							<Route
 								exact
 								path="/add-products"

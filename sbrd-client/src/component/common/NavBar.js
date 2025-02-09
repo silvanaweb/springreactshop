@@ -70,7 +70,17 @@ const NavBar = () => {
 							</li>
 						)}
 
-						{isAutenticated() && (
+						{isAutenticated() && !isAdmin() && (
+						<li className="nav-item">
+							<Link
+								className="nav-link active"
+								aria-current="page"
+								to={"/view-customer-orders"}>
+								View Orders
+							</Link>
+						</li>
+						)}
+						{isAdmin() && (
 						<li className="nav-item">
 							<Link
 								className="nav-link active"
