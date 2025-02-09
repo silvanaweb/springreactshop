@@ -1,5 +1,6 @@
 package com.example.shop.response.dto;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class OrdersDto {
@@ -8,9 +9,20 @@ public class OrdersDto {
     private Long userId;
     private String username;
     private Double totalPrice;
+    private Timestamp orderDate;
     private List<OrderItemDto> orderItems;
 
     public OrdersDto() {
+    }
+
+    public OrdersDto(Long id, Long customerId, Long userId, String username, Double totalPrice, List<OrderItemDto> orderItems, Timestamp orderDate) {
+        this.id = id;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.username = username;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        this.orderItems = orderItems;
     }
 
     public OrdersDto(Long id, Long customerId, Long userId, String username, Double totalPrice, List<OrderItemDto> orderItems) {
@@ -22,6 +34,13 @@ public class OrdersDto {
         this.orderItems = orderItems;
     }
 
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+    }
     public Long getId() {
         return id;
     }

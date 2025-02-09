@@ -45,7 +45,7 @@ const UserPofile = () => {
 						<div className="card mb-4">
 							<div className="card-body text-center">
 								<img
-									src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+									src="/bubu_glasses2.jpg"
 									alt="avatar"
 									className="rounded-circle img-fluid"
 									style={{ width: 150 }}

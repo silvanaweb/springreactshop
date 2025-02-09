@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../account/AuthContext';
 import axiosInstance from '../../axiosConfig';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import mysqlDateToJs from '../../utilities/mysqlDatetoJs';
 
 const OrdersView = () => {
   const { getUserId, isAdmin } = useAuth();
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadOrders();
@@ -49,26 +49,44 @@ const OrdersView = () => {
         <div className="container">
           <div className="row">
             <div className="col col-sm-12 col-md-4">
-            <div className="input-group mb-5">
-              <label className="input-group-text" htmlFor="brand">
-                Filter by Brand
-              </label>
-              <select
-                className="form-control col-sm-6"
-                name="brand"
-                id="brand"
-                required
-                onChange={(e) => handleSelectChange(e)}
-              >
-                <option value="0">-- All Orders --</option>
-                <option value="1">NiKe</option>
-                <option value="2">Adidas</option>
-                <option value="3">Puma</option>
-                <option value="4">Reebook</option>
-                <option value="5">Fila</option>
-              </select>
-					</div>
-
+              <div className="input-group mb-5">
+                <label className="input-group-text" htmlFor="brand">
+                  Filter by Brand
+                </label>
+                <select
+                  className="form-control col-sm-6"
+                  name="brand"
+                  id="brand"
+                  required
+                  onChange={(e) => handleSelectChange(e)}
+                >
+                  <option value="0">-- All Orders --</option>
+                  <option value="1">NiKe</option>
+                  <option value="2">Adidas</option>
+                  <option value="3">Puma</option>
+                  <option value="4">Reebook</option>
+                  <option value="5">Fila</option>
+                </select>
+              </div>
+            </div>
+            <div className="col col-sm-12 col-md-5">
+              <div className="input-group ">
+                <label className="input-group-text" htmlFor="date">
+                  Filter by Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="date"
+                  name="date"
+                />
+                <button className="btn btn-primary">Go</button>
+              </div>
+            </div>
+            <div className="col col-sm-12 col-md-3">
+              <div className="input-group mb-5">
+                <button className="btn btn-primary">View all Orders</button>
+              </div>
             </div>
           </div>
         </div>
@@ -78,6 +96,7 @@ const OrdersView = () => {
               <th>ID</th>
               <th>Total</th>
               <th>Customer</th>
+              <th>Create On</th>
               <th>Products</th>
             </tr>
           </thead>
@@ -95,19 +114,20 @@ const OrdersView = () => {
                         {order.username}
                       </Link>
                     </td>
+                    <td>{mysqlDateToJs(order.orderDate)}</td>
 
                     <td>
                       {order?.orderItems?.map((product) => {
                         return (
                           <p key={product.id}>
                             <Link
-                              to={`/product-view/${product.productId}`} 
+                              to={`/product-view/${product.productId}`}
                             >
-                              {product.productName} 
+                              {product.productName}
                             </Link>
                             <span>
                               - £{product.price} x qty {product.quantity}
-                            </span>  
+                            </span>
                           </p>
                         )
                       })}

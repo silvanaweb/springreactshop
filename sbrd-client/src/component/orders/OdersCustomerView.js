@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../account/AuthContext';
 import axiosInstance from '../../axiosConfig';
 import { Link } from 'react-router-dom';
+import mysqlDateToJs from '../../utilities/mysqlDatetoJs';
 
 const OdersCustomerView = () => {
   const { getUserId, isAdmin } = useAuth();
@@ -36,7 +37,7 @@ const OdersCustomerView = () => {
             <tr className="text-center">
               <th>ID</th>
               <th>Total</th>
-              <th>Customer</th>
+              <th>Create On</th>
               <th>Products</th>
             </tr>
           </thead>
@@ -49,11 +50,7 @@ const OdersCustomerView = () => {
                   <tr key={order.id}>
                     <td>{order.id}</td>
                     <td>£ {order.totalPrice}</td>
-                    <td>
-                      <Link to={`/user-profile/${order.userId}`}>
-                        {order.username}
-                      </Link>
-                    </td>
+                    <td>{mysqlDateToJs(order.orderDate)}</td>
 
                     <td>
                       {order?.orderItems?.map((product) => {
