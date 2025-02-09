@@ -21,6 +21,12 @@ public class OrderService {
                 .map(OrdersMapper.INSTANCE::orderToOrderDTO).collect(Collectors.toList());
     }
 
+//    public List<OrdersDto> getOrdersByUserId(Long userId) {
+//        return orderRepository.findAllByUserId(userId)
+//                .stream()
+//                .map(OrdersMapper.INSTANCE::orderToOrderDTO).collect(Collectors.toList());
+//    }
+
     public String addOrder(Orders order) {
         orderRepository.save(order);
         return "Order uploaded successfully";

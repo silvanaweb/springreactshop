@@ -29,9 +29,10 @@ public class OrdersController {
         return orderService.addOrder(order);
     }
 
-    @GetMapping("/user/{id}")
-    public String getUserOrders(@PathVariable("id") Long id) {
-        return "User Orders";
-    }
+//    @GetMapping("/user/{id}")
+//    public List<OrdersDto> getUserOrders(@PathVariable("id") Long id) {
+//
+//        return {};
+//    }
 
 }

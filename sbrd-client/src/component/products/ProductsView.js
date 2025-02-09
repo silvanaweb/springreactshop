@@ -31,7 +31,7 @@ const ProductsView = () => {
 					},
 				}
 			);
-			if (result.status === 302) {
+			if (result.status === 302 || result.status === 200) {
 				setProducts(result.data);
 			}
 

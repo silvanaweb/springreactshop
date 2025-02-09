@@ -5,6 +5,7 @@ import java.util.List;
 public class OrdersDto {
     private Long id;
     private Long customerId;
+    private Long userId;
     private String username;
     private Double totalPrice;
     private List<OrderItemDto> orderItems;
@@ -12,9 +13,10 @@ public class OrdersDto {
     public OrdersDto() {
     }
 
-    public OrdersDto(Long id, Long customerId, String username, Double totalPrice, List<OrderItemDto> orderItems) {
+    public OrdersDto(Long id, Long customerId, Long userId, String username, Double totalPrice, List<OrderItemDto> orderItems) {
         this.id = id;
         this.customerId = customerId;
+        this.userId = userId;
         this.username = username;
         this.totalPrice = totalPrice;
         this.orderItems = orderItems;
@@ -58,5 +60,13 @@ public class OrdersDto {
 
     public void setOrderItems(List<OrderItemDto> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
