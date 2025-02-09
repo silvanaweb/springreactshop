@@ -26,6 +26,21 @@ const OrdersView = () => {
     }
   };
 
+  const handleSelectChange = async (e) => {
+    const brandId = e.target.value;
+    if (brandId === '0') {
+      loadOrders();
+      return;
+    }
+    try {
+      const response = await axiosInstance.get(`/orders/brand/${brandId}`);
+      if (response.status === 200) {
+        setOrders(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className='container mt-5'>
@@ -33,8 +48,26 @@ const OrdersView = () => {
       <section>
         <div className="container">
           <div className="row">
-            <div className="col">
-{/* TODO : implement filters */}
+            <div className="col col-sm-12 col-md-4">
+            <div className="input-group mb-5">
+              <label className="input-group-text" htmlFor="brand">
+                Filter by Brand
+              </label>
+              <select
+                className="form-control col-sm-6"
+                name="brand"
+                id="brand"
+                required
+                onChange={(e) => handleSelectChange(e)}
+              >
+                <option value="0">-- All Orders --</option>
+                <option value="1">NiKe</option>
+                <option value="2">Adidas</option>
+                <option value="3">Puma</option>
+                <option value="4">Reebook</option>
+                <option value="5">Fila</option>
+              </select>
+					</div>
 
             </div>
           </div>

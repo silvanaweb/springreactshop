@@ -19,19 +19,19 @@ public class OrdersController {
         return orderService.getOrders();
     }
 
-//    @GetMapping
-//    public List<Orders> getOrders() {
-//        return orderService.getOrders();
-//    }
-
     @PostMapping("/add")
     public String addOrder(@RequestBody Orders order) {
         return orderService.addOrder(order);
     }
 
     @GetMapping("/user/{id}")
-    public List<OrdersDto> getUserOrders(@PathVariable("id") Long id) {
+    public List<OrdersDto> getOrdersByUserId(@PathVariable("id") Long id) {
         return orderService.getOrdersByUserId(id);
+    }
+
+    @GetMapping("/brand/{id}")
+    public List<OrdersDto> getOrdersByBrandId(@PathVariable("id") Long id) {
+        return orderService.getOrdersByBrandId(id);
     }
 
 }
