@@ -3,16 +3,17 @@ import { useAuth } from '../account/AuthContext';
 import axiosInstance from '../../axiosConfig';
 
 const OrdersView = () => {
-  const { getUserId } = useAuth();
+  const { getUserId, isAdmin } = useAuth();
 
     useEffect(() => {
       loadOrders();
     }, []);
 
     const loadOrders = async () => {
-      const userId = getUserId() ? `/user/${getUserId()}` : '';
+
       try {
-        const response = await axiosInstance.get(`/orders${userId}`);
+        const endpoint = isAdmin() ? '/orders' : `/orders/user/${getUserId()}`;
+        const response = await axiosInstance.get(endpoint);
         console.log(response.data);
       } catch (error) {
         console.error(error);
