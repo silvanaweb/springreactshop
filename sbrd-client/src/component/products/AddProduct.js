@@ -89,7 +89,9 @@ const AddProduct = () => {
 			if (file) {
 				await saveImage();
 			}
-			navigate("/view-products");
+			setTimeout(() => {
+				navigate("/view-products");
+			}, 2000);
 		} catch (error) {
 			setErrors("Falied loading the product");
 
@@ -182,7 +184,7 @@ const AddProduct = () => {
 					{imagePreview && (
 						<div className="input-group mb-5">
 							<h3>Image Preview</h3>
-							<div className="row">
+							<div className="w-100">
 								<img src={imagePreview} alt="preview" height="200" />
 							</div>
 						</div>

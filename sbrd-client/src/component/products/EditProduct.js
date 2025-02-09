@@ -193,7 +193,7 @@ const EditProduct = () => {
 					{image && (
 						<div className="input-group mb-5">
 							<h3>Current Image</h3>
-							<div className="row">
+							<div className="w-100">
 								<img src={`http://localhost:8080/file/download/${image}`}  height="200"  />
 							</div>
 						</div>
@@ -211,7 +211,7 @@ const EditProduct = () => {
 					{imagePreview && (
 						<div className="input-group mb-5">
 							<h3>Image Preview</h3>
-							<div className="row">
+							<div className="w-100">
 								<img src={imagePreview} alt="preview" height="200" />
 							</div>
 						</div>

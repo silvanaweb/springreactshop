@@ -3,10 +3,9 @@ package com.example.shop.service;
 
 import com.example.shop.model.Product;
 import com.example.shop.repository.ProductRepository;
-import com.example.shop.users.model.User;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
