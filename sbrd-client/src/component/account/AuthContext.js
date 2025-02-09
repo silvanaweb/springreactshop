@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
         setToken(response.data);
         browserCookie.set('token', response.data, {expires: 1})
         localStorage.setItem('token', response.data);
-        console.log('silvana cookie', browserCookie.get('jwt')) ;
         return response
       }
       throw new Error(response.message);
@@ -40,7 +39,6 @@ const AuthProvider = ({ children }) => {
   const getUserRole = () => {
     if (!token) return null
     const  jwt = jwtDecode(token);
-    console.log('silvana getUserRole', jwt)
     return jwt ? jwt.scope : null;
   }
 

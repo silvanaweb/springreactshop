@@ -23,11 +23,7 @@ public class Customer {
     private User user;
     private String address;
     private String phone;
-    @ManyToMany
-    @JoinTable(
-            name = "customer_order",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
+
+    @OneToMany(mappedBy = "customer")
     private Set<Orders> orders;
 }

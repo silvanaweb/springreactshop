@@ -26,7 +26,6 @@ const ProductPofile = () => {
 		const result = await axiosInstance.get(
 			`products/${id}`
 		);
-		console.log('silvana after loading', product)
 		setProduct(result.data);
 
 	};

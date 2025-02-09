@@ -1,13 +1,13 @@
 package com.example.shop.model;
 
-import com.example.shop.users.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Setter
@@ -24,6 +24,7 @@ public class Orders {
     private Customer customer;
 
     private double totalPrice;
-    private LocalDateTime orderDate;
+    @CreationTimestamp
+    private Timestamp orderDate;
 
 }

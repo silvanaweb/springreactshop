@@ -5,13 +5,13 @@ import {
 } from "react-router-dom";
 
 import axiosInstance from "../../axiosConfig";
-import axios from "axios";
 
 const AddProduct = () => {
 	const [errors, setErrors] = useState('');
 
 	let navigate = useNavigate();
 	const [file, setFile] = useState(null);
+	const [imagePreview, setImagePreview] = useState(null);
 	const [product, setProduct] = useState({
 		name: "",
 		description: "",
@@ -37,7 +37,7 @@ const AddProduct = () => {
 
 	const handleInputFile = (e) => {
 		const fileData = e.target.files[0];
-
+		setImagePreview(URL.createObjectURL(fileData));
 		setProduct({
 			...product,
 			image: fileData.name
@@ -75,15 +75,15 @@ const AddProduct = () => {
 			setErrors(error);
 		}
 	};
-	
+
 	const saveProduct = async (e) => {
 		e.preventDefault();
 
 		const form = new FormData();
 		form.append(
-      "product",
-      product
-    );
+			"product",
+			product
+		);
 		try {
 			axiosInstance.post(`/products`, product)
 			if (file) {
@@ -92,7 +92,7 @@ const AddProduct = () => {
 			navigate("/view-products");
 		} catch (error) {
 			setErrors("Falied loading the product");
-			
+
 		}
 	};
 
@@ -124,12 +124,11 @@ const AddProduct = () => {
 							htmlFor="description">
 							Description
 						</label>
-						<input
+						<textarea
 							className="form-control col-sm-6"
-							type="text"
 							name="description"
 							id="description"
-							value={description}
+							defaultValue={description}
 							onChange={(e) => handleInputChange(e)}
 						/>
 					</div>
@@ -172,21 +171,29 @@ const AddProduct = () => {
 					</div>
 
 					<div className="input-group mb-5">
-					<label
+						<label
 							className="input-group-text"
 							htmlFor="formFile">
-							Image 
+							Image
 						</label>&nbsp;&nbsp;
 						<input className="form-control" name="file" type="file" id="formFile" onChange={handleInputFile} />
 					</div>
 
+					{imagePreview && (
+						<div className="input-group mb-5">
+							<h3>Image Preview</h3>
+							<div className="row">
+								<img src={imagePreview} alt="preview" height="200" />
+							</div>
+						</div>
+					)}
 
 					{errors && (
-							<div style={{ color: "red" }}>
-								<p>{errors}</p>
-							</div>
-						)}
-						
+						<div style={{ color: "red" }}>
+							<p>{errors}</p>
+						</div>
+					)}
+
 					<div className="row mb-5">
 						<div className="col-sm-2">
 							<button

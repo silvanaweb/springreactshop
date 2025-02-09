@@ -30,7 +30,7 @@ const UsersView = () => {
 					},
 				}
 			);
-			console.log('silvana result', result)
+
 			if (result.status === 200) {
 				setUsers(result.data);
 			}

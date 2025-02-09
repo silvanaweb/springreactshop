@@ -5,7 +5,6 @@ import { useAuth } from './AuthContext';
 const ProtectedRoute = ({ children }) => {
   const { isAdmin } = useAuth();
 
-  console.log('silvana user', isAdmin())
   if (isAdmin()) {
     return children
   } else {

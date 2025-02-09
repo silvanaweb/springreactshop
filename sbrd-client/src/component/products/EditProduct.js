@@ -12,6 +12,7 @@ import axiosInstance from "../../axiosConfig";
 
 const EditProduct = () => {
 	let navigate = useNavigate();
+	const [ imagePreview, setImagePreview ] = useState('');
 	const [ image, setImage ] = useState('');
 
 	const { id } = useParams();
@@ -41,9 +42,7 @@ const EditProduct = () => {
 			`/products/${id}`
 		);
 		setProduct(result.data);
-		if (result.data.image) {
-			setImage(result.data.image);
-		}
+		setImage(result.data.image);
 	};
 
 	const handleSelectChange = (e) => {
@@ -57,7 +56,7 @@ const EditProduct = () => {
 			},
 		});
 	};
-	
+
 	const handleInputChange = (e) => {
 		setProduct({
 			...product,
@@ -69,6 +68,7 @@ const EditProduct = () => {
 
 	const handleInputFile = (e) => {
 		const fileData = e.target.files[0];
+		setImagePreview(URL.createObjectURL(fileData));
 		setProduct({
 			...product,
 			image: fileData.name
@@ -108,17 +108,13 @@ const EditProduct = () => {
 			if (file) {
 				await saveImage();
 			}
-			navigate("/view-products");
-			
+			setTimeout(() => {
+				navigate("/view-products");
+			}, 2000);
 		} catch (error) {
 			setErrors("Falied loading the product");
 		}
 	};
-
-	console.log('silvana product', product)
-	const imagePreview = image
-		? `http://localhost:8080/file/download/${image}`
-		: "/shoe.png";
 
 	return (
 		<div className='container mt-5'>
@@ -194,6 +190,15 @@ const EditProduct = () => {
 						/>
 					</div>
 
+					{image && (
+						<div className="input-group mb-5">
+							<h3>Current Image</h3>
+							<div className="row">
+								<img src={`http://localhost:8080/file/download/${image}`}  height="200"  />
+							</div>
+						</div>
+					)}
+
 					<div className="input-group mb-5">
 						<label
 							className="input-group-text"
@@ -202,9 +207,15 @@ const EditProduct = () => {
 						</label>&nbsp;&nbsp;
 						<input className="form-control" name="file" type="file" id="formFile" onChange={handleInputFile} />
 					</div>
-					<div className="input-group mb-5">
-						<img src={imagePreview} style={{ maxHeight: 300 }} />
-					</div>
+
+					{imagePreview && (
+						<div className="input-group mb-5">
+							<h3>Image Preview</h3>
+							<div className="row">
+								<img src={imagePreview} alt="preview" height="200" />
+							</div>
+						</div>
+					)}
 
 
 					{errors && (
