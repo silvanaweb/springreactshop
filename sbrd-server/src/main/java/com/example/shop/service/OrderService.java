@@ -51,7 +51,6 @@ public class OrderService {
         String validDate = validateDate(orderDate);
         System.out.println("Timestamp" + validDate);
         if (validDate == null) {
-            // return exception at this point
             return null;
         }
         return orderRepository.findAllByOrderDate(validDate)

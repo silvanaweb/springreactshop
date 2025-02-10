@@ -20,14 +20,6 @@ public class ProductService {
     private static final Object FOLDER_PATH = "/Users/silvana.donato/workspace/playground/javaprojects/reactwebapp/sbrd-server/src/main/resources/static/images";
     private final ProductRepository productRepository;
 
-    public byte[] getProductImage(String name) throws IOException {
-        File imageFile = new File(FOLDER_PATH + "/" + name);
-        if(!imageFile.exists()){
-            throw new IOException("image is not found in the location");
-        }
-        return Files.readAllBytes(imageFile.toPath());
-    }
-
     public String addProduct(Product product) {
         productRepository.save(product);
         return "Product uploaded successfully";
@@ -47,7 +39,4 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public void deleteProduct(Long id) {
-        // delete image
-    }
 }

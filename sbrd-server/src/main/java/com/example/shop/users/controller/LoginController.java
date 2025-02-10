@@ -1,5 +1,6 @@
 package com.example.shop.users.controller;
 
+import com.example.shop.exception.UserAlreadyExistsException;
 import com.example.shop.security.UserPrincipal;
 import com.example.shop.users.model.LoginRequest;
 import com.example.shop.users.model.User;
@@ -32,19 +33,18 @@ public class LoginController {
         this.tokenService = tokenService;
     }
 
+    private boolean userAlreadyExists(String email) {
+        return userService.getUserByEmail(email).isPresent();
+    }
+
     @PostMapping("/register")
     public ResponseEntity<User> newUser(@RequestBody() User user){
+        if (userAlreadyExists(user.getEmail())){
+            throw new UserAlreadyExistsException("User " + user.getEmail() + " already exists");
+        }
         User newUser = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
-
-//    private void setJwtCookie(HttpServletResponse response, String jwtToken) {
-//        Cookie cookie = new Cookie("jwt", jwtToken);
-//        cookie.setPath("/");
-//        cookie.setHttpOnly(true);
-//        cookie.setMaxAge(ChronoUnit.DAYS.ordinal());
-//        response.addCookie(cookie);
-//    }
 
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
