@@ -1,6 +1,6 @@
 package com.example.reactwebapp.services;
 
-import com.example.reactwebapp.TestProductUtil;
+import com.example.reactwebapp.resources.TestProductUtil;
 import com.example.shop.model.Brand;
 import com.example.shop.model.Product;
 import com.example.shop.repository.ProductRepository;

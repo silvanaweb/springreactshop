@@ -2,12 +2,12 @@ package com.example.shop.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 @Setter
 @Getter
 public class Product {

@@ -1,4 +1,4 @@
-package com.example.reactwebapp;
+package com.example.reactwebapp.resources;
 
 import com.example.shop.model.Brand;
 import com.example.shop.model.Product;
