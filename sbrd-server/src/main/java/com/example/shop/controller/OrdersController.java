@@ -34,4 +34,9 @@ public class OrdersController {
         return orderService.getOrdersByBrandId(id);
     }
 
+    @GetMapping("/date/{date}")
+    public List<OrdersDto> getOrdersByOrderDate(@PathVariable("date") String date) {
+        return orderService.getOrdersByOrderDate(date);
+    }
+
 }

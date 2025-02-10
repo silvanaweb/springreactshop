@@ -3,10 +3,13 @@ import { useAuth } from '../account/AuthContext';
 import axiosInstance from '../../axiosConfig';
 import { Link } from 'react-router-dom';
 import mysqlDateToJs from '../../utilities/mysqlDatetoJs';
+import { set } from 'browser-cookies';
 
 const OrdersView = () => {
   const { getUserId, isAdmin } = useAuth();
   const [orders, setOrders] = useState([]);
+  const [date, setDate] = useState('');
+  const [brand, setBrand] = useState(0);
 
   useEffect(() => {
     loadOrders();
@@ -20,16 +23,37 @@ const OrdersView = () => {
       if (response.status === 302 || response.status === 200) {
         setOrders(response.data);
       }
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSelectChange = async (e) => {
+  const handleDateChange = async (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate);
+    setBrand(0)
+
+    try {
+      const response = await axiosInstance.get(`/orders/date/${selectedDate}`);
+      if (response.status === 200) {
+        setOrders(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadAllOrders = async () => {
+    setDate('');
+    setBrand(0);
+    loadOrders();
+  };
+
+  const handleBrandChange = async (e) => {
     const brandId = e.target.value;
+    setBrand(brandId);
+    setDate('');
     if (brandId === '0') {
-      loadOrders();
       return;
     }
     try {
@@ -46,10 +70,10 @@ const OrdersView = () => {
     <div className='container mt-5'>
       <h1>Orders View</h1>
       <section>
-        <div className="container">
+        <div className="container mt-4">
           <div className="row">
             <div className="col col-sm-12 col-md-4">
-              <div className="input-group mb-5">
+              <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="brand">
                   Filter by Brand
                 </label>
@@ -58,9 +82,10 @@ const OrdersView = () => {
                   name="brand"
                   id="brand"
                   required
-                  onChange={(e) => handleSelectChange(e)}
+                  value={brand}
+                  onChange={(e) => handleBrandChange(e)}
                 >
-                  <option value="0">-- All Orders --</option>
+                  <option value="0">- Select Brand -</option>
                   <option value="1">NiKe</option>
                   <option value="2">Adidas</option>
                   <option value="3">Puma</option>
@@ -79,13 +104,15 @@ const OrdersView = () => {
                   className="form-control"
                   id="date"
                   name="date"
+                  max={new Date().toISOString().split("T")[0]}
+                  value={date}
+                  onChange={handleDateChange}
                 />
-                <button className="btn btn-primary">Go</button>
               </div>
             </div>
-            <div className="col col-sm-12 col-md-3">
-              <div className="input-group mb-5">
-                <button className="btn btn-primary">View all Orders</button>
+            <div className="col col-sm-12 col-md-3 sb-3">
+              <div className="input-group ">
+                <button className="btn btn-primary" onClick={loadAllOrders}>View all Orders</button>
               </div>
             </div>
           </div>

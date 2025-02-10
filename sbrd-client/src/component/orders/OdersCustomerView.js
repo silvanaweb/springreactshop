@@ -20,7 +20,6 @@ const OdersCustomerView = () => {
       if (response.status === 302 || response.status === 200) {
         setOrders(response.data);
       }
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

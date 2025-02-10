@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import { useAuth } from './AuthContext';
 
 const Login = () => {
@@ -21,31 +21,9 @@ const Login = () => {
     });
   };
 
-  // const handleSubmit = async(e) => {
-  //   e.preventDefault();
-  //   // Handle form submission logic here
-  //   console.log('Form submitted:', formData);
-  //   setError('');
-  //   // Send data to the server
-  //   try {
-  //     const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, formData);
-  //     console.log('Server response:', response);
-  //     if (response.status === 200) {
-  //       login();
-  //       navigate('/login-success');
-  //     } else {
-  //       const errorText = response.data.error || 'Login failed';
-  //       setError(errorText);
-  //     }
-  //   } catch (error) {
-  //     setError('Login failed');
-  //   }
-  // };
-
   const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Form submitted:', formData);
     setError('');
     // Send data to the server
     try {

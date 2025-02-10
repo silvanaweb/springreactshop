@@ -7,6 +7,11 @@ import com.example.shop.response.mapper.OrdersMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +19,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+
+    public String validateDate(String strDate) {
+        try {
+            new SimpleDateFormat("yyyyDDmm").parse(strDate);
+            return strDate;
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     public List<OrdersDto> getOrders() {
         return orderRepository.findAll()
@@ -29,6 +43,18 @@ public class OrderService {
 
     public List<OrdersDto> getOrdersByBrandId(Long brandId) {
         return orderRepository.findAllByBrandId(brandId)
+                .stream()
+                .map(OrdersMapper.INSTANCE::orderToOrderDTO).collect(Collectors.toList());
+    }
+
+    public List<OrdersDto> getOrdersByOrderDate(String orderDate) {
+        String validDate = validateDate(orderDate);
+        System.out.println("Timestamp" + validDate);
+        if (validDate == null) {
+            // return exception at this point
+            return null;
+        }
+        return orderRepository.findAllByOrderDate(validDate)
                 .stream()
                 .map(OrdersMapper.INSTANCE::orderToOrderDTO).collect(Collectors.toList());
     }
