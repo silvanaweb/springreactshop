@@ -50,4 +50,20 @@ public class OrdersServiceTest {
         assertThat(ordersReturned.get(0).getTotalPrice()).isEqualTo(100);
         assertThat(ordersReturned.get(0).getOrderDate()).isEqualTo(new Timestamp(100));
     }
+
+    @Test
+    public void testThatOrderIsReturnedByUserId() {
+        // Given
+        List<Orders> orders = TestOrderUtil.createTestOrderA();
+        when(orderRepository.findAllByUserId(1L)).thenReturn(orders);
+        // When
+        List<OrdersDto> ordersReturned = serviceUnderTest.getOrdersByUserId(1L);
+
+        // Then
+        assertThat(ordersReturned).isNotNull();
+        assertThat(ordersReturned.get(0).getId()).isEqualTo(1L);
+        assertThat(ordersReturned.get(0).getCustomerId()).isEqualTo(1L);
+        assertThat(ordersReturned.get(0).getTotalPrice()).isEqualTo(100);
+        assertThat(ordersReturned.get(0).getOrderDate()).isEqualTo(new Timestamp(100));
+    }
 }

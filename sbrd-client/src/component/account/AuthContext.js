@@ -14,12 +14,11 @@ const AuthProvider = ({ children }) => {
   const loginAction = async (data) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, data);
-      if (response.status == 200 || response.status == 201){
+      if (response.status === 200 || response.status === 201){
 
         setUser(response.data.user);
         setToken(response.data);
         browserCookie.set('token', response.data, {expires: 1})
-        localStorage.setItem('token', response.data);
         return response
       }
       throw new Error(response.message);
@@ -33,7 +32,6 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     setToken('');
     browserCookie.erase('token');
-    localStorage.removeItem('token');
   };
 
   const getUserRole = () => {
@@ -60,7 +58,7 @@ const AuthProvider = ({ children }) => {
       return true;
     }
     setToken('');
-    localStorage.removeItem('token');
+    browserCookie.erase('token');
     return false;
   }
 

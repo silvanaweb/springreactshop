@@ -27,6 +27,7 @@ public class ReactwebappApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception
 	{
+		// this is a quick way to add brands to the database
 		List<Brand> brands = Arrays.asList(
 				new Brand(null, "Nike"),
 				new Brand(null, "Adidas"),

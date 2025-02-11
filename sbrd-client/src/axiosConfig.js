@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import browserCookie from 'browser-cookies'
 
 const axiosInstance = axios.create({
   headers: {
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = browserCookie.get('token') || '';
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
